@@ -29,7 +29,7 @@ import net.maizegenetics.dna.snp.NucleotideAlignmentConstants;
 import static net.maizegenetics.dna.snp.NucleotideAlignmentConstants.GAP_DIPLOID_ALLELE;
 import net.maizegenetics.dna.snp.genotypecall.GenotypeCallTableBuilder;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * A class to mask input files, hold information related to accuracy calculation,

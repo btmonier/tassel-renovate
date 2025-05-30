@@ -455,7 +455,7 @@ public class DiscoverySNPCallerPluginV2Test {
         theMethod.setAccessible(true);
         return (Table<Position, Byte, List<TagTaxaDistribution>>)theMethod.invoke(discoverySNPCallerPluginV2,
                 (Object)alignedTags, (Object)tagTaxaDistMap,(Object)refStartPosition);
-        //org.apache.commons.lang.reflect.MethodUtils - this could be used to simplify this.
+        //org.apache.commons.lang3.reflect.MethodUtils - this could be used to simplify this.
     }
     
     private Map<Tag,TaxaDistribution> usePrivCreateReferenceTag(Position cutPos, Map<Tag,

@@ -102,7 +102,7 @@ final class PositionHDF5List implements PositionList {
 
     PositionHDF5List(IHDF5Reader reader) {
         this.reader=reader;
-        if (reader.hasAttribute(Tassel5HDF5Constants.POSITION_ATTRIBUTES_PATH,Tassel5HDF5Constants.POSITION_GENOME_VERSION)) {
+        if (reader.object().hasAttribute(Tassel5HDF5Constants.POSITION_ATTRIBUTES_PATH,Tassel5HDF5Constants.POSITION_GENOME_VERSION)) {
             genomeVersion = reader.string().getAttr(Tassel5HDF5Constants.POSITION_ATTRIBUTES_PATH,Tassel5HDF5Constants.POSITION_GENOME_VERSION);
         } else {
             genomeVersion = null;

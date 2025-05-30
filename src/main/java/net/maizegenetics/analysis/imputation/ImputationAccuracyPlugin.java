@@ -4,7 +4,7 @@ import net.maizegenetics.dna.snp.*;
 import net.maizegenetics.plugindef.*;
 import net.maizegenetics.util.TableReport;
 import net.maizegenetics.util.TableReportBuilder;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

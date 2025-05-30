@@ -1,7 +1,7 @@
 package net.maizegenetics.pal.distance;
 
 import ch.systemsx.cisd.hdf5.*;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 import ch.systemsx.cisd.base.mdarray.MDIntArray;
 import java.io.File;

@@ -128,7 +128,7 @@ public final class HDF5Utils {
             });
         } else {
             for (String key : annotationKeys) {
-                if (reader.hasAttribute(path, key)) {
+                if (reader.object().hasAttribute(path, key)) {
                     for (String value : Splitter.on(",").split(reader.string().getAttr(path, key))) {
                         builder.addAnnotation(key, value);
                     }

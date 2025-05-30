@@ -53,7 +53,7 @@ dependencies {
     implementation("org.apache.avro:avro:1.8.1")
     implementation("colt:colt:1.2.0")
     implementation("org.biojava.thirdparty:forester:1.039")
-    implementation("cisd:jhdf5:14.12.5")
+    implementation("cisd:jhdf5:19.04.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
     implementation("org.ini4j:ini4j:0.5.4")

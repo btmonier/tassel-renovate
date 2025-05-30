@@ -6,7 +6,7 @@ import com.google.common.collect.Range;
 import com.google.common.collect.RangeMap;
 import net.maizegenetics.util.DirectedGraph;
 import net.maizegenetics.util.Utils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 
 import java.io.BufferedWriter;
