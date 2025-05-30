@@ -57,7 +57,7 @@ public class DistanceMatrixHDF5Test {
 //            HDF5FloatStorageFeatures features=HDF5FloatStorageFeatures.createDeflation(deflationLevel[h]);
 
                 // Define the block size
-                h5w.createFloatMatrix("mydata", fileDim, fileDim, dataDim[i], dataDim[i], features);
+                h5w.float32().createMatrix("mydata", fileDim, fileDim, dataDim[i], dataDim[i], features);
 
 
                 long time = System.nanoTime();
@@ -68,7 +68,7 @@ public class DistanceMatrixHDF5Test {
                         int xOffset = bx * dataDim[i];
                         int yOffset = by * dataDim[i];
                         //                System.out.println("Offsets x: " + xOffset + " y: " + yOffset);
-                        h5w.writeFloatMatrixBlockWithOffset("mydata", mydata, dataDim[i], dataDim[i], xOffset, yOffset);
+                        h5w.float32().writeMatrixBlockWithOffset("mydata", mydata, dataDim[i], dataDim[i], xOffset, yOffset);
                     }
                 }
 
@@ -83,7 +83,7 @@ public class DistanceMatrixHDF5Test {
                         int xOffset = bx * dataDim[i];
                         int yOffset = by * dataDim[i];
                         //                System.out.println("Offsets x: " + xOffset + " y: " + yOffset);
-                        float[][] in = h5w.readFloatMatrixBlockWithOffset("mydata", dataDim[i], dataDim[i], xOffset, yOffset);
+                        float[][] in = h5w.float32().readMatrixBlockWithOffset("mydata", dataDim[i], dataDim[i], xOffset, yOffset);
                         //            assertArrayEquals(mydata[i],in[0],0.001f);
                     }
                 }
@@ -133,7 +133,7 @@ public class DistanceMatrixHDF5Test {
         HDF5FloatStorageFeatures features=HDF5FloatStorageFeatures.createDeflation(0);
         double totalWrites = (double)(xFileSize * yFileSize)/ (double)(xDataBlockSize * yDataBlockSize);
         // Define the block size
-        h5w.createFloatMatrix("mydata", xFileSize, yFileSize, xDataBlockSize, yDataBlockSize, features);
+        h5w.float32().createMatrix("mydata", xFileSize, yFileSize, xDataBlockSize, yDataBlockSize, features);
         System.out.println("Created Float Matrix - overall size: " + xFileSize + "x" + yFileSize + " & block sizes: " + xDataBlockSize + "x" + yDataBlockSize);
         System.out.println("Total writes: " + totalWrites);
 
@@ -144,7 +144,7 @@ public class DistanceMatrixHDF5Test {
                 int xOffset = bx* xDataBlockSize;
                 int yOffset = by* yDataBlockSize;
 //                System.out.println("Offsets x: " + xOffset + " y: " + yOffset);
-               h5w.writeFloatMatrixBlockWithOffset("mydata",mydata,xDataBlockSize, yDataBlockSize,xOffset, yOffset);
+               h5w.float32().writeMatrixBlockWithOffset("mydata",mydata,xDataBlockSize, yDataBlockSize,xOffset, yOffset);
             }
         }
 
@@ -158,7 +158,7 @@ public class DistanceMatrixHDF5Test {
                 int xOffset = bx* xDataBlockSize;
                 int yOffset = by* yDataBlockSize;
 //                System.out.println("Offsets x: " + xOffset + " y: " + yOffset);
-                float[][] in=h5w.readFloatMatrixBlockWithOffset("mydata",xDataBlockSize, yDataBlockSize,xOffset, yOffset);
+                float[][] in = h5w.float32().readMatrixBlockWithOffset("mydata",xDataBlockSize, yDataBlockSize,xOffset, yOffset);
   //            assertArrayEquals(mydata[i],in[0],0.001f);
             }
         }
@@ -231,21 +231,21 @@ public class DistanceMatrixHDF5Test {
         // Write the integer matrix.
         IHDF5Writer writer = HDF5Factory.open("largeimatrix.h5");
         // Define the block size as 10 x 10.
-        writer.createIntMatrix("mydata", 10, 10);
+        writer.int32().createMatrix("mydata", 10, 10);
         // Write 5 x 7 blocks.
         for (int bx = 0; bx < 5; ++bx)
         {
             for (int by = 0; by < 7; ++by)
             {
                 fillMatrix(rng, mydata);
-                writer.writeIntMatrixBlock("mydata", mydata, bx, by);
+                writer.int32().writeMatrixBlock("mydata", mydata, bx, by);
             }
         }
         writer.close();
 
         // Read the matrix in again, using the "natural" 10 x 10 blocks.
         IHDF5Reader reader = HDF5Factory.openForReading("largeimatrix.h5");
-        for (HDF5MDDataBlock<MDIntArray> block : reader.getIntMDArrayNaturalBlocks("mydata"))
+        for (HDF5MDDataBlock<MDIntArray> block : reader.int32().getMDArrayNaturalBlocks("mydata"))
         {
             System.out.println(ArrayUtils.toString(block.getIndex()) + " -> "
                     + block.getData().toString());

@@ -319,10 +319,10 @@ public class DynamicBitStorageTest {
         config.dontUseExtendableDataTypes();
         IHDF5Writer h5w = config.writer();
         HDF5IntStorageFeatures genoFeatures = HDF5IntStorageFeatures.createDeflation(defLevel);
-        h5w.createGroup(HapMapHDF5Constants.GENOTYPES);
+        h5w.object().createGroup(HapMapHDF5Constants.GENOTYPES);
         for (int t = 0; t < taxa; t++) {
             String basesPath = HapMapHDF5Constants.GENOTYPES + "/T" + t;
-            h5w.createByteArray(basesPath, sites,1<<16, genoFeatures);
+            h5w.int8().createArray(basesPath, sites,1<<16, genoFeatures);
             HDF5Utils.writeHDF5EntireArray(basesPath, h5w, sites, 1<<16, myGenotype[t]);
         }
         h5w.close();
@@ -351,14 +351,14 @@ public class DynamicBitStorageTest {
         long time=System.nanoTime();
         IHDF5Writer h5w = HDF5Factory.open(newHDF5file);
         HDF5IntStorageFeatures genoFeatures = HDF5IntStorageFeatures.createDeflation(defLevel);
-        h5w.createGroup(HapMapHDF5Constants.TBIT);
+        h5w.object().createGroup(HapMapHDF5Constants.TBIT);
         for (int t = 0; t < taxa; t++) {
             String basesPath = HapMapHDF5Constants.TBIT + "/T" + t+"_0";
-            h5w.createByteArray(basesPath, sites,genoFeatures);
-            h5w.writeLongArray(basesPath,bst.allelePresenceForAllSites(t, WHICH_ALLELE.Major).getBits(),genoFeatures);
+            h5w.int8().createArray(basesPath, sites,genoFeatures);
+            h5w.int64().writeArray(basesPath,bst.allelePresenceForAllSites(t, WHICH_ALLELE.Major).getBits(), genoFeatures);
             basesPath = HapMapHDF5Constants.TBIT + "/T" + t+"_1";
-            h5w.createByteArray(basesPath, sites,genoFeatures);
-            h5w.writeLongArray(basesPath,bst.allelePresenceForAllSites(t, WHICH_ALLELE.Minor).getBits(),genoFeatures);
+            h5w.int8().createArray(basesPath, sites,genoFeatures);
+            h5w.int64().writeArray(basesPath,bst.allelePresenceForAllSites(t, WHICH_ALLELE.Minor).getBits(), genoFeatures);
         }
         h5w.close();
         long totalTime=System.nanoTime()-time;

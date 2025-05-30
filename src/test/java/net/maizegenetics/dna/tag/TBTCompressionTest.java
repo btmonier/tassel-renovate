@@ -44,10 +44,10 @@ public class TBTCompressionTest {
 
 
         HDF5IntStorageFeatures intDeflation = HDF5IntStorageFeatures.createDeflation(1);
-        writer.createLongMatrix("tags", expectedTBT.getTagSizeInLong(), expectedTBT.getTagCount(),
+        writer.int64().createMatrix("tags", expectedTBT.getTagSizeInLong(), expectedTBT.getTagCount(),
                 expectedTBT.getTagSizeInLong(), expectedTBT.getTagCount());
         writer.writeLongMatrix("tags", expectedTBT.tags);
-        writer.createByteMatrix("base", expectedTBT.getTaxaCount(), expectedTBT.getTagCount(),
+        writer.int8().createMatrix("base", expectedTBT.getTaxaCount(), expectedTBT.getTagCount(),
                 step, blockSize, intDeflation);
         for (int tx = 0; tx < expectedTBT.getTaxaCount(); tx+=step) {
             byte[][] reads=new byte[step][];
@@ -57,7 +57,7 @@ public class TBTCompressionTest {
 
             //System.out.println(tx+":"+reads[0][0]);
             //System.out.println(expectedTBT.getReadCountForTagTaxon(0,tx));
-            writer.writeByteMatrixBlock("base", reads, tx/step, 0);
+            writer.int8().writeMatrixBlock("base", reads, tx/step, 0);
         }
         writer.close();
         Path pathNew= Paths.get(outFile);
@@ -88,7 +88,7 @@ public class TBTCompressionTest {
         sum=0;
         for (int tx = 0; tx < expectedTBT.getTaxaCount(); tx+=step) {
             //System.out.println("tx:"+tx);
-            byte[][] reads=reader.readByteMatrixBlock("base",step,expectedTBT.getTagCount(),tx/step,0l);
+            byte[][] reads = reader.int8().readMatrixBlock("base",step,expectedTBT.getTagCount(),tx/step,0l);
             for (byte[] readt : reads) {
                 for (byte read : readt) {
                     sum+=read;
